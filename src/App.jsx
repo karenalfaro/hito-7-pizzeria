@@ -1,4 +1,6 @@
-import { Routes, Route } from 'react-router-dom'
+import { useContext } from 'react'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { UserContext } from './context/UserContext'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -10,16 +12,18 @@ import Profile from './pages/Profile'
 import NotFound from './pages/NotFound'
 
 const App = () => {
+  const { token } = useContext(UserContext)
+
   return (
     <>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={token ? <Navigate to="/" /> : <RegisterPage />} />
+        <Route path="/login" element={token ? <Navigate to="/" /> : <LoginPage />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/pizza/p001" element={<Pizza />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/pizza/:id" element={<Pizza />} />
+        <Route path="/profile" element={token ? <Profile /> : <Navigate to="/login" />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

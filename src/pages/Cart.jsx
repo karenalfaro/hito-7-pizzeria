@@ -1,9 +1,11 @@
 import { useContext } from 'react'
 import { CartContext } from '../context/CartContext'
+import { UserContext } from '../context/UserContext'
 import { formatPrice } from '../utils/formatPrice'
 
 const Cart = () => {
   const { cart, aumentar, disminuir, total } = useContext(CartContext)
+  const { token } = useContext(UserContext)
 
   return (
     <div className="container my-5">
@@ -36,7 +38,9 @@ const Cart = () => {
           )}
 
           <h3 className="mt-4">Total: ${formatPrice(total)}</h3>
-          <button className="btn btn-dark mt-2">Pagar</button>
+          <button className="btn btn-dark mt-2" disabled={!token}>
+            Pagar
+          </button>
         </div>
       </div>
     </div>

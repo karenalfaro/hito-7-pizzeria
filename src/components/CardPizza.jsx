@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { CartContext } from '../context/CartContext'
 import { formatPrice } from '../utils/formatPrice'
 
@@ -24,7 +25,9 @@ const CardPizza = ({ id, name, price, ingredients, img }) => {
         <h4 className="text-center">Precio: ${formatPrice(price)}</h4>
 
         <div className="d-flex justify-content-around mt-3">
-          <button className="btn btn-outline-dark btn-sm">Ver Más 👀</button>
+          <Link to={`/pizza/${id}`} className="btn btn-outline-dark btn-sm">
+            Ver Más 👀
+          </Link>
           <button
             className="btn btn-dark btn-sm"
             onClick={() => agregarPizza({ id, name, price, img })}
